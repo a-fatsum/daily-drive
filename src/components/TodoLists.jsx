@@ -1,29 +1,22 @@
 import TodoLista from "./TodoLista";
-// import AddTodo from "./AddTodo";
-export default function TodoLists({ listObj, addTodos }) {
+export default function TodoLists({ listObj, addTodos, deleteTodoList }) {
   return (
     <>
-      {/* <ul>
-        {newListObj.map((listObj) => (
-          <TodoItem
-            title={listObj.listTitle}
-            todoItemTitle={listObj.todoList.map((item) => item.title)}
-            key={listObj.id}
-          />
-        ))}
-      </ul> */}
-      {/* <AddTodo addTodos={addTodos} /> */}
-      <ul>
-        {listObj.map((listObj) => (
-          <TodoLista
-            listTitle={listObj.listTitle}
-            // todoItemTitle={listObj.todoList.map((item) => item.title)}
-            todoList={listObj.todoList}
-            addTodos={addTodos}
-            key={listObj.id}
-          />
-        ))}
-      </ul>
+      <div className="todo-lists">
+        <ul>
+          {listObj.map((listObj) => (
+            <TodoLista
+              listTitle={listObj.listTitle}
+              todoList={listObj.todoList}
+              addTodos={addTodos}
+              key={listObj.id}
+              timeStamp={listObj.timeStamp}
+              listColor={listObj.listColor}
+              deleteTodoList={deleteTodoList}
+            />
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

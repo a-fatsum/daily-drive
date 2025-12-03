@@ -1,45 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import AddTodo from "./components/AddTodo";
 import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
 
 import "./App.css";
 
 function App() {
-  const [todos, setTodos] = useState([]);
   const [listObj, setListObj] = useState([]);
-
-  // Add todo items into each individual todoList
-  function addTodos(title) {
-    setTodos((currentTodos) => {
-      return [
-        ...currentTodos,
-        { id: crypto.randomUUID(), title, complete: false },
-      ];
-    });
-  }
-
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#F333FF", "#33FFF5"];
   //
+
+  useEffect(() => {
+    console.log("List 👉👉👉 updated:", listObj);
+  }, [listObj]);
 
   function addTodoList(e, listTitle) {
     e.preventDefault();
     setListObj((currentLists) => {
       return [
         ...currentLists,
-        { id: crypto.randomUUID(), listTitle, todoList: todos },
+        {
+          id: crypto.randomUUID(),
+          listTitle,
+          timeStamp: Date.now(),
+          listColor: colors,
+        },
       ];
     });
-
     console.log("newListItem", listObj);
+  }
+
+  function deleteTodoList(id) {
+    setListObj((currentLists) => {
+      console.log("Deleted List with id:🆔 ", id);
+
+      return currentLists.filter((list) => list.id !== id);
+    });
+    console.log("Deleted List with id:", id);
+    console.log("Updated listObj:", listObj);
   }
 
   //
   return (
     <>
-      <AddTodoList addTodoList={addTodoList} />
-      {/* <AddTodo addTodos={addTodos} /> */}
-      <TodoLists listObj={listObj} key={listObj.id} addTodos={addTodos} />
+      <div className="app">
+        <AddTodoList addTodoList={addTodoList} />
+        <TodoLists
+          listObj={listObj}
+          key={listObj.id}
+          deleteTodoList={deleteTodoList}
+        />
+      </div>
     </>
   );
 }
