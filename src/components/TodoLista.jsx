@@ -12,18 +12,18 @@ export default function TodoLista({
 }) {
   const [todos, setTodos] = useState([]);
 
-  function addTodos(title, dueDate) {
+  function addTodos(title, dueDate, dueTime) {
     setTodos((currentTodos) => {
       return [
         ...currentTodos,
-        { id: crypto.randomUUID(), title, dueDate, complete: false },
+        { id: crypto.randomUUID(), title, dueDate, complete: false, dueTime },
       ];
     });
   }
 
   return (
     <>
-      <div className="todo-lista">
+      <div className="todo-lista bg-red-200">
         <div className="todo-lista-header">
           {/* <ListCategory
             category={listTitle}
@@ -64,6 +64,7 @@ export default function TodoLista({
           <TodoItem
             todoItemTitle={todoItem.title}
             todoItemDueDate={todoItem.dueDate}
+            todoItemDueTime={todoItem.dueTime}
             key={todoItem.id}
           />
         ))}

@@ -1,4 +1,25 @@
-export default function TodoItem({ todoItemTitle, todoItemDueDate }) {
+export default function TodoItem({
+  todoItemTitle,
+  todoItemDueDate,
+  todoItemDueTime,
+}) {
+  let date;
+  let time;
+  if (!todoItemDueDate) {
+    date = "No due date set";
+  } else {
+    date = new Date(todoItemDueDate).toLocaleDateString();
+  }
+
+  if (!todoItemDueTime) {
+    time = "No due time set";
+  } else {
+    time = new Date(`1970-01-01T${todoItemDueTime}Z`).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
   return (
     <>
       <div className="todo-item">
@@ -6,9 +27,9 @@ export default function TodoItem({ todoItemTitle, todoItemDueDate }) {
           <label>
             <input type="checkbox" />
             {/* {listTitle} */}
-            {todoItemTitle} - Due:{" "}
-            {new Date(todoItemDueDate).toLocaleDateString()}
-          </label>
+            {todoItemTitle} - Due: {date}
+          </label>{" "}
+          at {time}
           <button>Delete Item</button>
         </li>
       </div>

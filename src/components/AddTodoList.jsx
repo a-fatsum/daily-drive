@@ -2,10 +2,10 @@ import { useState } from "react";
 
 export default function AddTodoList({ addTodoList }) {
   const [listTitle, setListTitle] = useState("");
-  const [listTimeStamp, setListTimeStamp] = useState("");
 
   function addList(e) {
     e.preventDefault();
+    if (listTitle.trim() === "") return;
     addTodoList(e, listTitle);
   }
   //

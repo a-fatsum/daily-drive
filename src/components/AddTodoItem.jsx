@@ -3,9 +3,11 @@ import { useState } from "react";
 export default function AddTodoItem({ addTodos }) {
   const [newItem, setNewItem] = useState("");
   const [dueDate, setDueDate] = useState("");
+  const [dueTime, setDueTime] = useState("");
   function addTodo(e) {
     e.preventDefault();
-    addTodos(newItem, dueDate);
+    if (newItem.trim() === "") return;
+    addTodos(newItem, dueDate, dueTime);
   }
   //
   // FORM
@@ -33,7 +35,9 @@ export default function AddTodoItem({ addTodos }) {
           type="time"
           id="due-time"
           name="due-time"
-          // returnFormat="YYYY-MM-DD"
+          onChange={(e) => {
+            setDueTime(e.target.value);
+          }}
         />
         <button>Add</button>
       </form>
