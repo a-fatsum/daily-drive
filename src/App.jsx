@@ -36,8 +36,6 @@ function App() {
 
       return currentLists.filter((list) => list.id !== id);
     });
-    console.log("Deleted List with id:", id);
-    console.log("Updated listObj:", listObj);
   }
 
   //
@@ -48,7 +46,7 @@ function App() {
         <AddTodoList addTodoList={addTodoList} />
       </div>
 
-      <div className="min-h-screen   flex flex-col items-center justify-center gap-4 p-4">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-8 p-4">
         <TodoLists
           listObj={listObj}
           key={listObj.id}

@@ -23,13 +23,8 @@ export default function TodoLista({
 
   return (
     <>
-      <div className="todo-lista  " style={{ backgroundColor: listColor[0] }}>
+      <div className="todo-lista p-4 rounded-lg shadow-md">
         <div className="todo-lista-header">
-          {/* <ListCategory
-            category={listTitle}
-            timeStamp={timeStamp}
-            listColor={listColor}
-          /> */}
           {listTitle}
 
           <select
@@ -41,16 +36,7 @@ export default function TodoLista({
             }}
           >
             {listColor.map((color, i) => (
-              <option
-                style={{ backgroundColor: color }}
-                // style={{
-                //   backgroundColor: listColor[i],
-                //   width: "100%",
-                //   height: "10px",
-                // }}
-                key={i}
-                value={color}
-              >
+              <option style={{ backgroundColor: color }} key={i} value={color}>
                 {color}
               </option>
             ))}
