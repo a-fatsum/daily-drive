@@ -43,14 +43,19 @@ function App() {
   //
   return (
     <>
-      <div className="app">
+      {/* <div className="app min-h-screen   flex items-center justify-center"> */}
+      <div className="  shadow-lg rounded-xl p-6 space-y-6">
         <AddTodoList addTodoList={addTodoList} />
+      </div>
+
+      <div className="min-h-screen   flex flex-col items-center justify-center gap-4 p-4">
         <TodoLists
           listObj={listObj}
           key={listObj.id}
           deleteTodoList={deleteTodoList}
         />
       </div>
+      {/* </div> */}
     </>
   );
 }

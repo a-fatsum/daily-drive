@@ -23,7 +23,7 @@ export default function TodoLista({
 
   return (
     <>
-      <div className="todo-lista bg-red-200">
+      <div className="todo-lista  " style={{ backgroundColor: listColor[0] }}>
         <div className="todo-lista-header">
           {/* <ListCategory
             category={listTitle}
