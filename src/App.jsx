@@ -38,6 +38,12 @@ function App() {
     });
   }
 
+  // Conditional redner AddTodoList
+  const [showAddTodoList, setShowAddTodoList] = useState(false);
+  function renderAddTodoList() {
+    setShowAddTodoList(true);
+  }
+
   //
   return (
     <>
@@ -47,13 +53,19 @@ function App() {
           <button
             htmlFor="add_new_list"
             className="border p-2 rounded-md hover:bg-green-600 flex items-center justify-center"
+            onClick={renderAddTodoList}
           >
             <Plus />
           </button>
           <label htmlFor="add_new_list">Create New List</label>
         </div>
         <hr />
+
         {/* <AddTodoList addTodoList={addTodoList} /> */}
+
+        <div>
+          {showAddTodoList && <AddTodoList addTodoList={addTodoList} />}
+        </div>
         <TodoLists
           listObj={listObj}
           key={listObj.id}
