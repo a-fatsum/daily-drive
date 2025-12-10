@@ -3,24 +3,27 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif;
 
   margin: 0;
   background: linear-gradient(to right, #00aaff, #00ff6c);
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   justify-content: space-between;
-  /* align-items: center; */
+  align-items: center; */
 }
 
 #root {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: start; */
+  /* align-items: center; */
+  /* min-width: 100%; */
   min-height: 100vh;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  /* background-color: rgb(29, 28, 28); */
+  /* background-color: rgb(29, 20, 146); */
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -31,14 +34,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.todo-item {
+/* .todo-item {
   background: #928c8c;
   border: 1px solid #9c9999;
   border-radius: 4px;
   padding: 1rem;
   margin-bottom: 1rem;
   text-align: left;
-}
+} */
 
 /* .todo-lists ul {
   margin-top: 2rem;
@@ -51,7 +54,7 @@ body {
   /* background-color: tomato; */
 }
 .todo-lista-header {
-  padding: 0.5rem;
+  /* padding: 0.5rem;
   margin-bottom: 1rem;
   font-weight: bold;
   font-size: 1.2rem;
@@ -60,9 +63,9 @@ body {
   justify-content: space-between;
   gap: 1rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
 }
 form {
-  display: flex;
-  gap: 0.5rem;
+  /* display: flex;
+  gap: 0.5rem; */
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
-
+import { Plus } from "lucide-react";
 import "./App.css";
 
 function App() {
@@ -42,16 +42,32 @@ function App() {
   return (
     <>
       {/* <div className="app min-h-screen   flex items-center justify-center"> */}
-      <div className="  shadow-lg rounded-xl p-6 space-y-6">
-        <AddTodoList addTodoList={addTodoList} />
-      </div>
-
-      <div className="min-h-screen flex flex-col items-center justify-center gap-8 p-4">
+      <div className=" p-6  space-y-6 bg-[#242423] min-w-[30%]">
+        <div className="mt-8 ml-8 flex items-center  gap-4">
+          <button
+            htmlFor="add_new_list"
+            className="border p-2 rounded-md hover:bg-green-600 flex items-center justify-center"
+          >
+            <Plus />
+          </button>
+          <label htmlFor="add_new_list">Create New List</label>
+        </div>
+        <hr />
+        {/* <AddTodoList addTodoList={addTodoList} /> */}
         <TodoLists
           listObj={listObj}
           key={listObj.id}
           deleteTodoList={deleteTodoList}
         />
+      </div>
+
+      <div className="min-h-screen flex flex-col min-w-[70%] bg-[#333533] items-center justify-center gap-8 p-4">
+        <h2>Select a list to start</h2>
+        {/* <TodoLists
+          listObj={listObj}
+          key={listObj.id}
+          deleteTodoList={deleteTodoList}
+        /> */}
       </div>
       {/* </div> */}
     </>
