@@ -82,7 +82,11 @@ function App() {
                 minWidth: 350,
               }}
             >
-              <AddTodoList addTodoList={addTodoList} onClose={handleClose} />
+              <AddTodoList
+                addTodoList={addTodoList}
+                handleCloseProp={handleClose}
+                onClose={handleClose}
+              />
             </Box>
           </Modal>
         </div>
