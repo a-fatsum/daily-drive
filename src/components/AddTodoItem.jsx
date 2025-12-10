@@ -26,7 +26,6 @@ export default function AddTodoItem({ addTodos }) {
           type="date"
           id="due-date"
           name="due-date"
-          returnFormat="YYYY-MM-DD"
           onChange={(e) => {
             setDueDate(e.target.value);
           }}

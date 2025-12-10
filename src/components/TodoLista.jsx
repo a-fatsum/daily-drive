@@ -23,24 +23,13 @@ export default function TodoLista({
 
   return (
     <>
-      <div className="todo-lista p-4 rounded-lg shadow-md">
+      <div
+        className="todo-lista p-4 rounded-lg shadow-md "
+        // set background color of the list
+        style={{ backgroundColor: listColor }}
+      >
         <div className="todo-lista-header">
           {listTitle}
-
-          <select
-            name=""
-            id=""
-            onChange={(e) => {
-              document.querySelector(".todo-lista").style.backgroundColor =
-                e.target.value;
-            }}
-          >
-            {listColor.map((color, i) => (
-              <option style={{ backgroundColor: color }} key={i} value={color}>
-                {color}
-              </option>
-            ))}
-          </select>
 
           <span>Created on: {new Date(timeStamp).toLocaleDateString()}</span>
           <button onClick={() => deleteTodoList(id)}>Delete List</button>

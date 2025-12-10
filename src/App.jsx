@@ -3,18 +3,17 @@ import { useState, useEffect } from "react";
 import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
 import { Plus } from "lucide-react";
+import { Modal, Box } from "@mui/material";
 import "./App.css";
 
 function App() {
   const [listObj, setListObj] = useState([]);
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#F333FF", "#33FFF5"];
-  //
 
   useEffect(() => {
     console.log("List 👉👉👉 updated:", listObj);
   }, [listObj]);
 
-  function addTodoList(e, listTitle) {
+  function addTodoList(e, listTitle, listColor) {
     e.preventDefault();
     setListObj((currentLists) => {
       return [
@@ -23,7 +22,7 @@ function App() {
           id: crypto.randomUUID(),
           listTitle,
           timeStamp: Date.now(),
-          listColor: colors,
+          listColor,
         },
       ];
     });
@@ -44,6 +43,9 @@ function App() {
     setShowAddTodoList(true);
   }
 
+  const handleClose = () => {
+    setShowAddTodoList(false);
+  };
   //
   return (
     <>
@@ -59,13 +61,32 @@ function App() {
           </button>
           <label htmlFor="add_new_list">Create New List</label>
         </div>
+
         <hr />
 
-        {/* <AddTodoList addTodoList={addTodoList} /> */}
+        {/* RENDER WITHOUT POP-UP =>>>> {showAddTodoList && <AddTodoList addTodoList={addTodoList} />} */}
 
+        {/* Pop up */}
         <div>
-          {showAddTodoList && <AddTodoList addTodoList={addTodoList} />}
+          <Modal open={showAddTodoList} onClose={handleClose}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                bgcolor: "#333533",
+                boxShadow: 24,
+                p: 3,
+                borderRadius: 2,
+                minWidth: 350,
+              }}
+            >
+              <AddTodoList addTodoList={addTodoList} onClose={handleClose} />
+            </Box>
+          </Modal>
         </div>
+
         <TodoLists
           listObj={listObj}
           key={listObj.id}
@@ -75,11 +96,6 @@ function App() {
 
       <div className="min-h-screen flex flex-col min-w-[70%] bg-[#333533] items-center justify-center gap-8 p-4">
         <h2>Select a list to start</h2>
-        {/* <TodoLists
-          listObj={listObj}
-          key={listObj.id}
-          deleteTodoList={deleteTodoList}
-        /> */}
       </div>
       {/* </div> */}
     </>
