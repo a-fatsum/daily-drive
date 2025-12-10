@@ -28,21 +28,35 @@ export default function TodoLista({
         // set background color of the list
         style={{ backgroundColor: listColor }}
       >
-        <div className="todo-lista-header">
-          {listTitle}
+        <div className="todo-lista-header flex items-center justify-between ">
+          <h2 className="font-bold text-2xl">{listTitle}</h2>
 
-          <span>Created on: {new Date(timeStamp).toLocaleDateString()}</span>
-          <button onClick={() => deleteTodoList(id)}>Delete List</button>
+          <span className="text-xs">
+            Created on: {new Date(timeStamp).toLocaleDateString()}
+          </span>
         </div>
-        <AddTodoItem addTodos={addTodos} />
-        {todos.map((todoItem) => (
-          <TodoItem
-            todoItemTitle={todoItem.title}
-            todoItemDueDate={todoItem.dueDate}
-            todoItemDueTime={todoItem.dueTime}
-            key={todoItem.id}
-          />
-        ))}
+
+        <div className="mt-4 ">
+          <AddTodoItem addTodos={addTodos} />
+        </div>
+
+        <div>
+          {todos.map((todoItem) => (
+            <TodoItem
+              todoItemTitle={todoItem.title}
+              todoItemDueDate={todoItem.dueDate}
+              todoItemDueTime={todoItem.dueTime}
+              key={todoItem.id}
+            />
+          ))}
+        </div>
+
+        <button
+          className=" m-2 hover:bg-red-600 p-2 flex items-center justify-center border rounded-md"
+          onClick={() => deleteTodoList(id)}
+        >
+          Delete List
+        </button>
       </div>
     </>
   );

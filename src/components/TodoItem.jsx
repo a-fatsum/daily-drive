@@ -22,13 +22,15 @@ export default function TodoItem({
 
   return (
     <>
-      <div className="todo-item">
+      <div className=" bg-yellow-400 flex flex-col">
         <li>
           <label>
             <input type="checkbox" />
             {/* {listTitle} */}
-            {todoItemTitle} - Due: {date}
           </label>{" "}
+          <label>
+            {todoItemTitle} - Due: {date}
+          </label>
           at {time}
           <button>Delete Item</button>
         </li>

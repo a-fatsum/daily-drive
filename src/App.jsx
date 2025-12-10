@@ -84,8 +84,7 @@ function App() {
             >
               <AddTodoList
                 addTodoList={addTodoList}
-                handleCloseProp={handleClose}
-                onClose={handleClose}
+                // onClose={handleClose}
               />
             </Box>
           </Modal>
