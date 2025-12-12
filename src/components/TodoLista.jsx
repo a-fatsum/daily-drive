@@ -29,7 +29,7 @@ export default function TodoLista({
         style={{ backgroundColor: listColor }}
       >
         <div className="todo-lista-header flex items-center justify-between ">
-          <h2 className="font-bold text-2xl">{listTitle}</h2>
+          <h2 className="font-bold text-xl">{listTitle}</h2>
 
           <span className="text-xs">
             Created on: {new Date(timeStamp).toLocaleDateString()}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
-import { Plus } from "lucide-react";
+import { Plus, ArrowLeft } from "lucide-react";
 import { Modal, Box } from "@mui/material";
 import "./App.css";
 
@@ -49,7 +49,6 @@ function App() {
   //
   return (
     <>
-      {/* <div className="app min-h-screen   flex items-center justify-center"> */}
       <div className=" p-6  space-y-6 bg-[#242423] min-w-[30%]">
         <div className="mt-8 ml-8 flex items-center  gap-4">
           <button
@@ -98,9 +97,11 @@ function App() {
       </div>
 
       <div className="min-h-screen flex flex-col min-w-[70%] bg-[#333533] items-center justify-center gap-8 p-4">
-        <h2>Select a list to start</h2>
+        <div className="flex gap-4 items-center justify-center">
+          <ArrowLeft size={32} />
+          <h2 className="text-4xl font-thin">Select a list to start</h2>
+        </div>
       </div>
-      {/* </div> */}
     </>
   );
 }
