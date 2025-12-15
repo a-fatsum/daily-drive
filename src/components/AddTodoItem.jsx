@@ -9,6 +9,7 @@ export default function AddTodoItem({ addTodos }) {
     if (newItem.trim() === "") return;
     addTodos(newItem, dueDate, dueTime);
   }
+
   //
 
   // FORM

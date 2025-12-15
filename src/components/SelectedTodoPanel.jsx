@@ -1,7 +1,12 @@
 import AddTodoItem from "./AddTodoItem";
 import TodoItem from "./TodoItem";
 
-export default function SelectedTodoPanel({ list, addTodo }) {
+export default function SelectedTodoPanel({
+  list,
+  addTodo,
+  deleteTodoItem,
+  onToggleComplete,
+}) {
   return (
     <div
       className="w-full p-4 rounded-lg max-w-2xl text-white"
@@ -19,9 +24,13 @@ export default function SelectedTodoPanel({ list, addTodo }) {
         {list.todos.map((todo) => (
           <TodoItem
             key={todo.id}
+            id={todo.id}
             todoItemTitle={todo.title}
             todoItemDueDate={todo.dueDate}
             todoItemDueTime={todo.dueTime}
+            deleteTodoItem={deleteTodoItem}
+            onToggleComplete={onToggleComplete}
+            complete={todo.complete}
           />
         ))}
       </ul>

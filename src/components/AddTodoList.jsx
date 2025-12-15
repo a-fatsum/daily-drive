@@ -5,15 +5,8 @@ import { useState } from "react";
 //  only works in Chrome
 import Select from "react-select";
 
-export default function AddTodoList({ addTodoList }) {
+export default function AddTodoList({ addTodoList, colors }) {
   const [listTitle, setListTitle] = useState("");
-  const colors = [
-    "#33ff582e",
-    "#ff58332d",
-    "#3358ff2f",
-    "#f133ff33",
-    "#33fff535",
-  ];
 
   // ********** I used ChatGPT to help me with the select dropdown -
   // Look up "react select dropdown" as basic <select> element styling is ignored in Firefox and other browsers -

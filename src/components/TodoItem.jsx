@@ -4,6 +4,10 @@ export default function TodoItem({
   todoItemTitle,
   todoItemDueDate,
   todoItemDueTime,
+  deleteTodoItem,
+  onToggleComplete,
+  complete,
+  id,
 }) {
   let date;
   let time;
@@ -24,22 +28,26 @@ export default function TodoItem({
 
   return (
     <>
-      <li className=" p-2 flex text-sm items-center justify-between gap-4 border-b ">
+      <li className=" p-2 flex text-sm items-center justify-between gap-4 border-b  ">
         <div className="flex items-center gap-4">
           <label>
-            <input type="checkbox" />
+            <input type="checkbox" onChange={() => onToggleComplete(id)} />
           </label>{" "}
-          <label>{todoItemTitle}</label>
+          <label className={complete ? "line-through" : ""}>
+            {todoItemTitle}
+          </label>
         </div>
-        <button className=" hover:bg-red-600 p-2 flex items-center justify-center border border-gray-700 text-xs rounded-md">
+        <button
+          onClick={() => deleteTodoItem(id)}
+          className=" hover:bg-red-600 p-2 flex items-center justify-center border border-gray-700 text-xs rounded-md"
+        >
           <Delete />
         </button>
       </li>
-      <div className="text-xs flex justify-between text-gray-400 ml-8 mb-4 mt-1">
+      <div className="text-xs flex justify-between text-gray-400 mb-4 p-2 mt-1 w-full">
         <span className="flex items-center justify-center">
           <CalendarDays className="inline-block mr-1" /> {date}
-        </span>{" "}
-        |{" "}
+        </span>
         <span className="flex items-center justify-center">
           <ClipboardClock className="inline-block mr-1" /> {time}
         </span>

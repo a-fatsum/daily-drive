@@ -8,8 +8,17 @@ import { Modal, Box } from "@mui/material";
 import "./App.css";
 
 function App() {
+  // Rememebr that listObj is an array of objects and todos:[] List lives inside the object
   const [listObj, setListObj] = useState([]);
   const [selectedListId, setSelectedListId] = useState(null);
+
+  const colors = [
+    "#e4ff332e",
+    "#ff58332d",
+    "#3358ff2f",
+    "#ff33a333",
+    "#00ff1e35",
+  ];
 
   useEffect(() => {
     console.log("List 👉👉👉 updated:", listObj);
@@ -80,7 +89,52 @@ function App() {
     });
   }
 
-  // Handle Delete
+  // Handle Complete Item
+  function completeTodoItem(todoId) {
+    setListObj((lists) => {
+      return lists.map((list) => {
+        if (list.id !== selectedListId) {
+          return list;
+        }
+        // if this IS the selected list:
+        return {
+          ...list,
+          // Replace todos with:
+          todos: list.todos.map((todo) => {
+            if (todo.id != todoId) {
+              return todo;
+            }
+
+            return {
+              ...todo,
+              // // Replace complete with: basically toggle true/false
+              complete: !todo.complete,
+            };
+          }),
+        };
+      });
+    });
+  }
+
+  // Handle Delete Item
+  function deleteTodoItem(todoId) {
+    setListObj((lists) => {
+      return lists.map((list) => {
+        if (list.id !== selectedListId) {
+          return list;
+        }
+
+        // if this IS the selected list:
+        return {
+          ...list,
+          // // Replace todos with:
+          todos: list.todos.filter((todo) => todo.id !== todoId), // keep all todos except the one to delete
+        };
+      });
+    });
+  }
+
+  // Handle Delete List
   function deleteTodoList(id) {
     setListObj((currentLists) => {
       console.log("Deleted List with id:🆔 ", id);
@@ -138,6 +192,7 @@ function App() {
             >
               <AddTodoList
                 addTodoList={addTodoList}
+                colors={colors}
                 // onClose={handleClose}
               />
             </Box>
@@ -160,7 +215,12 @@ function App() {
             <h2 className="text-4xl font-thin">Select a list to start</h2>
           </div>
         ) : (
-          <SelectedTodoPanel list={selectedList} addTodo={addTodoItemToList} />
+          <SelectedTodoPanel
+            deleteTodoItem={deleteTodoItem}
+            onToggleComplete={completeTodoItem}
+            list={selectedList}
+            addTodo={addTodoItemToList}
+          />
         )}
       </div>
     </>
