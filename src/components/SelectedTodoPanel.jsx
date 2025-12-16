@@ -20,7 +20,7 @@ export default function SelectedTodoPanel({
         }
       />
 
-      <ul className="mt-4">
+      <ul className="mt-4 border rounded-lg bg-white text-gray-800">
         {list.todos.map((todo) => (
           <TodoItem
             key={todo.id}

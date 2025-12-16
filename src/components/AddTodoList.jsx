@@ -66,6 +66,7 @@ export default function AddTodoList({ addTodoList, colors }) {
     e.preventDefault();
     if (listTitle.trim() === "") return;
     addTodoList(e, listTitle, listColor);
+    setListTitle("");
   }
   //
   // FORM
@@ -75,6 +76,7 @@ export default function AddTodoList({ addTodoList, colors }) {
         <input
           className="text-gray outline-none text-gray-800 p-2 rounded-md"
           type="text"
+          value={listTitle}
           onChange={(e) => {
             setListTitle(e.target.value);
           }}

@@ -4,15 +4,14 @@ export default function AddTodoItem({ addTodos }) {
   const [newItem, setNewItem] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [dueTime, setDueTime] = useState("");
+  //
   function addTodo(e) {
     e.preventDefault();
     if (newItem.trim() === "") return;
     addTodos(newItem, dueDate, dueTime);
+    setNewItem("");
   }
 
-  //
-
-  // FORM
   return (
     <>
       <h3>Add a new todo item</h3>
@@ -20,6 +19,7 @@ export default function AddTodoItem({ addTodos }) {
         <input
           className="outline-none text-gray-800 p-2 rounded-md bg-white"
           type="text"
+          value={newItem}
           onChange={(e) => {
             setNewItem(e.target.value);
           }}

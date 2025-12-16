@@ -13,7 +13,6 @@ export default function TodoLists({
           {listObj.map((listObj) => (
             <TodoLista
               listTitle={listObj.listTitle}
-              todoList={listObj.todoList}
               addTodos={addTodos}
               key={listObj.id}
               id={listObj.id}
@@ -22,6 +21,7 @@ export default function TodoLists({
               deleteTodoList={deleteTodoList}
               onSelect={onSelect}
               isSelected={selectedListId === listObj.id}
+              itemsCount={listObj.todos.length}
             />
           ))}
         </ul>
