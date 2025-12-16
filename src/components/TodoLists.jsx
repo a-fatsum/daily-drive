@@ -5,6 +5,7 @@ export default function TodoLists({
   deleteTodoList,
   onSelect,
   selectedListId,
+  sortTodos,
 }) {
   return (
     <>
@@ -22,6 +23,7 @@ export default function TodoLists({
               onSelect={onSelect}
               isSelected={selectedListId === listObj.id}
               itemsCount={listObj.todos.length}
+              sortTodos={sortTodos}
             />
           ))}
         </ul>

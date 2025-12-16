@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Select from "react-select";
 
-export default function AddTodoItem({ addTodos }) {
+export default function AddTodoItem({ addTodos, sortTodos, sortOptions }) {
   const [newItem, setNewItem] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [dueTime, setDueTime] = useState("");
@@ -11,6 +12,47 @@ export default function AddTodoItem({ addTodos }) {
     addTodos(newItem, dueDate, dueTime);
     setNewItem("");
   }
+  const sortSelection = sortOptions.map((selection) => ({
+    value: selection.value,
+    label: selection.label,
+  }));
+
+  // Style the drop-down options
+  const customStyles = {
+    option: (styles, { data }) => ({
+      ...styles,
+      color: "black",
+      marginBottom: 4,
+      padding: 12,
+      height: 40,
+    }),
+
+    singleValue: (styles) => ({
+      ...styles,
+      color: "black",
+    }),
+
+    placeholder: (styles) => ({
+      ...styles,
+      color: "black",
+    }),
+
+    control: (styles) => ({
+      ...styles,
+      minHeight: 40,
+      padding: "0 10px",
+    }),
+
+    dropdownIndicator: (styles) => ({
+      ...styles,
+      color: "black",
+    }),
+
+    indicatorSeparator: (styles) => ({
+      ...styles,
+      backgroundColor: "black",
+    }),
+  };
 
   return (
     <>
@@ -52,6 +94,15 @@ export default function AddTodoItem({ addTodos }) {
         </button>
 
         <hr className="my-4" />
+        <Select
+          options={sortSelection}
+          styles={customStyles}
+          onChange={(selectedOption) => {
+            sortTodos(selectedOption.value);
+          }}
+          isSearchable={false}
+          placeholder="Sort By"
+        />
       </form>
     </>
   );

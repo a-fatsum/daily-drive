@@ -11,6 +11,8 @@ function App() {
   // Rememebr that listObj is an array of objects and todos:[] List lives inside the object
   const [listObj, setListObj] = useState([]);
   const [selectedListId, setSelectedListId] = useState(null);
+  const [sortType, setSortType] = useState("default");
+  // Remember that React wil RE-RENDER (That's the magic word) when the state changes.
 
   const colors = [
     "#e4ff332e",
@@ -24,6 +26,23 @@ function App() {
     console.log("List 👉👉👉 updated:", listObj);
   }, [listObj]);
 
+  // Local Storage
+  // useEffect(() => {
+  //   localStorage.setItem("listObj", listObj);
+  // }, [listObj]);
+
+  // // Get any existing data in localStorage
+  // useEffect(() => {
+  //   const winCount = localStorage.getItem("wins");
+  //   const lossCount = localStorage.getItem("losses");
+
+  //   winCount ? setWins(winCount) : setWins(0);
+  //   lossCount ? setLosses(lossCount) : setLosses(0);
+  // }, []);
+
+  // //
+
+  // Handle Add List
   function addTodoList(e, listTitle, listColor) {
     e.preventDefault();
     setListObj((currentLists) => {
@@ -41,29 +60,7 @@ function App() {
     console.log("newListItem", listObj);
   }
 
-  // function addTodoItemToList(listId, title, dueDate, dueTime) {
-  //   setListObj((lists) =>
-  //     lists.map((list) =>
-  //       list.id === listId
-  //         ? {
-  //             ...list,
-  //             todos: [
-  //               ...list.todos,
-  //               {
-  //                 id: crypto.randomUUID(),
-  //                 title,
-  //                 dueDate,
-  //                 dueTime,
-  //                 complete: false,
-  //               },
-  //             ],
-  //           }
-  //         : list
-  //     )
-  //   );
-  // }
-
-  // Simplified version of the above function
+  // Handle Add Todo Item to List
   function addTodoItemToList(listId, title, dueDate, dueTime) {
     setListObj((lists) => {
       return lists.map((list) => {
@@ -138,10 +135,50 @@ function App() {
   function deleteTodoList(id) {
     setListObj((currentLists) => {
       console.log("Deleted List with id:🆔 ", id);
-
       return currentLists.filter((list) => list.id !== id);
     });
   }
+
+  // Handle Sorting
+  // const sortOptions = ["By Date", "Alphabetical", "Completed", "Default"];
+  const selectedList = listObj.find((list) => list.id === selectedListId);
+
+  const sortOptions = [
+    { label: "Default", value: "default" },
+    { label: "Alphabetical", value: "alphabetical" },
+    { label: "By Date", value: "date" },
+    { label: "Completed", value: "completed" },
+  ];
+
+  function sortTodos(type) {
+    setSortType(type);
+  }
+
+  // =====================
+  // READ UP MORE ON .sort() method
+  const sortedTodos = (() => {
+    if (!selectedList) return [];
+
+    const todos = [...selectedList.todos];
+
+    if (sortType === "alphabetical") {
+      return todos.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    if (sortType === "date") {
+      return todos.sort((a, b) => {
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(a.dueDate) - new Date(b.dueDate);
+      });
+    }
+
+    if (sortType === "completed") {
+      return todos.sort((a, b) => Number(a.complete) - Number(b.complete));
+    }
+
+    return todos; // default
+  })();
 
   // Conditional redner AddTodoList
   const [showAddTodoList, setShowAddTodoList] = useState(false);
@@ -154,7 +191,7 @@ function App() {
   };
   //
 
-  const selectedList = listObj.find((list) => list.id === selectedListId);
+  // const selectedList = listObj.find((list) => list.id === selectedListId);
 
   return (
     <>
@@ -219,7 +256,11 @@ function App() {
             deleteTodoItem={deleteTodoItem}
             onToggleComplete={completeTodoItem}
             list={selectedList}
+            // list={sortedTodos}
+            sortedTodos={sortedTodos}
             addTodo={addTodoItemToList}
+            sortTodos={sortTodos}
+            sortOptions={sortOptions}
           />
         )}
       </div>

@@ -44,6 +44,7 @@ export default function TodoItem({
           <Delete />
         </button>
       </li>
+
       <div className="text-xs flex justify-between text-gray-400 mb-4 p-2 mt-1 w-full">
         <span className="flex items-center justify-center">
           <CalendarDays className="inline-block mr-1" /> {date}
