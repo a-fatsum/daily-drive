@@ -31,9 +31,17 @@ export default function TodoItem({
       <li className=" p-2 flex text-sm items-center justify-between gap-4 border-b  ">
         <div className="flex items-center gap-4">
           <label>
-            <input type="checkbox" onChange={() => onToggleComplete(id)} />
+            <input
+              id={`todo-${id}`}
+              type="checkbox"
+              checked={complete}
+              onChange={() => onToggleComplete(id)}
+            />
           </label>{" "}
-          <label className={complete ? "line-through" : ""}>
+          <label
+            htmlFor={`todo-${id}`}
+            className={complete ? "line-through text-gray-400" : ""}
+          >
             {todoItemTitle}
           </label>
         </div>

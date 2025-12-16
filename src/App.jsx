@@ -3,13 +3,20 @@ import { useState, useEffect } from "react";
 import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
 import SelectedTodoPanel from "./components/SelectedTodoPanel";
-import { Plus, ArrowLeft } from "lucide-react";
+import { Plus, ArrowLeft, X } from "lucide-react";
 import { Modal, Box } from "@mui/material";
 import "./App.css";
 
 function App() {
   // Rememebr that listObj is an array of objects and todos:[] List lives inside the object
-  const [listObj, setListObj] = useState([]);
+
+  // Initialize state from localStorage
+  const [listObj, setListObj] = useState(() => {
+    const savedLists = localStorage.getItem("todoLists");
+    return savedLists ? JSON.parse(savedLists) : [];
+  });
+
+  // const [listObj, setListObj] = useState([]);
   const [selectedListId, setSelectedListId] = useState(null);
   const [sortType, setSortType] = useState("default");
   // Remember that React wil RE-RENDER (That's the magic word) when the state changes.
@@ -27,20 +34,11 @@ function App() {
   }, [listObj]);
 
   // Local Storage
-  // useEffect(() => {
-  //   localStorage.setItem("listObj", listObj);
-  // }, [listObj]);
+  useEffect(() => {
+    localStorage.setItem("todoLists", JSON.stringify(listObj));
+  }, [listObj]);
 
-  // // Get any existing data in localStorage
-  // useEffect(() => {
-  //   const winCount = localStorage.getItem("wins");
-  //   const lossCount = localStorage.getItem("losses");
-
-  //   winCount ? setWins(winCount) : setWins(0);
-  //   lossCount ? setLosses(lossCount) : setLosses(0);
-  // }, []);
-
-  // //
+  //
 
   // Handle Add List
   function addTodoList(e, listTitle, listColor) {
