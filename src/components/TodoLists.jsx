@@ -8,14 +8,16 @@ export default function TodoLists({
   onSelect,
   selectedListId,
   sortTodos,
-  sortOptions,
+  //
+  sortOptions, //
+  sortLists,
 }) {
   return (
     <>
       <div className="todo-lists ">
         {/* Drop-down */}
         <div className="mb-4">
-          <DropDown sortOptions={sortOptions} />
+          <DropDown sortOptions={sortOptions} sortLists={sortLists} />
         </div>
 
         {/* Lists */}

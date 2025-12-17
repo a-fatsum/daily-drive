@@ -152,6 +152,45 @@ function App() {
   function sortTodos(type) {
     setTodosSortType(type);
   }
+  //
+
+  // <----------------------
+
+  function sortLists(type) {
+    setListsSortType(type);
+    console.log("🧪 ⚙️ 😊", sortedLists);
+  }
+  //
+  const sortedLists = (() => {
+    if (!listObj) return [];
+
+    const lists = [...listObj];
+
+    if (listsSortType === "alphabetical") {
+      return lists.sort((a, b) => a.listTitle.localeCompare(b.listTitle));
+    }
+
+    if (listsSortType === "date") {
+      return lists.sort((a, b) => {
+        if (!a.timeStamp) return 1;
+        if (!b.timeStamp) return -1;
+        return new Date(a.timeStamp) - new Date(b.timeStamp);
+      });
+    }
+
+    if (listsSortType === "completed") {
+      return lists.sort((a, b) => {
+        const completedA = a.todos.filter((todo) => todo.complete).length;
+        const completedB = b.todos.filter((todo) => todo.complete).length;
+
+        return completedB - completedA; // more completed first
+      });
+    }
+
+    return lists; // default
+  })();
+
+  // ----------------------->
 
   // =====================
   // READ UP MORE ON .sort() method
@@ -236,13 +275,15 @@ function App() {
         </div>
 
         <TodoLists
-          listObj={listObj}
+          // listObj={listObj}
+          listObj={sortedLists}
           key={listObj.id}
           deleteTodoList={deleteTodoList}
           selectedListId={selectedListId}
           onSelect={setSelectedListId}
           //
-          sortOptions={sortOptions}
+          sortOptions={sortOptions} //
+          sortLists={sortLists}
         />
       </div>
 

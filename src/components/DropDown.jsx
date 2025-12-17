@@ -1,7 +1,7 @@
 import Select from "react-select";
 //
 
-export default function DropDown({ sortOptions, value, onChange }) {
+export default function DropDown({ sortOptions, value, onChange, sortLists }) {
   const sortSelection = sortOptions.map((selection) => ({
     value: selection.value,
     label: selection.label,
@@ -91,7 +91,7 @@ export default function DropDown({ sortOptions, value, onChange }) {
       options={sortSelection}
       value={value}
       styles={customStyles}
-      onChange={onChange}
+      onChange={(selectedOption) => sortLists(selectedOption.value)}
       className="w-40"
       placeholder="Sort Lists By"
     />
