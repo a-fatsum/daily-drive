@@ -118,7 +118,6 @@ function App() {
         if (list.id !== selectedListId) {
           return list;
         }
-
         // if this IS the selected list:
         return {
           ...list,
