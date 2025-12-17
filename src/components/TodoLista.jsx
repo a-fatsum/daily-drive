@@ -1,8 +1,3 @@
-// import TodoItem from "./TodoItem";
-// import AddTodoItem from "./AddTodoItem";
-// import { useState } from "react";
-// import ListCategory from "./ListCategory";
-
 export default function TodoLista({
   listTitle,
   timeStamp,
