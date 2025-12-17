@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
 import SelectedTodoPanel from "./components/SelectedTodoPanel";
-import { Plus, ArrowLeft, X } from "lucide-react";
+import { Plus, ArrowLeft } from "lucide-react";
 import { Modal, Box } from "@mui/material";
 import "./App.css";
 
@@ -18,7 +18,9 @@ function App() {
 
   // const [listObj, setListObj] = useState([]);
   const [selectedListId, setSelectedListId] = useState(null);
-  const [sortType, setSortType] = useState("default");
+  const [todosSortType, setTodosSortType] = useState("default");
+  const [listsSortType, setListsSortType] = useState("default");
+
   // Remember that React wil RE-RENDER (That's the magic word) when the state changes.
 
   const colors = [
@@ -148,7 +150,7 @@ function App() {
   ];
 
   function sortTodos(type) {
-    setSortType(type);
+    setTodosSortType(type);
   }
 
   // =====================
@@ -158,11 +160,11 @@ function App() {
 
     const todos = [...selectedList.todos];
 
-    if (sortType === "alphabetical") {
+    if (todosSortType === "alphabetical") {
       return todos.sort((a, b) => a.title.localeCompare(b.title));
     }
 
-    if (sortType === "date") {
+    if (todosSortType === "date") {
       return todos.sort((a, b) => {
         if (!a.dueDate) return 1;
         if (!b.dueDate) return -1;
@@ -170,7 +172,7 @@ function App() {
       });
     }
 
-    if (sortType === "completed") {
+    if (todosSortType === "completed") {
       return todos.sort((a, b) => Number(a.complete) - Number(b.complete));
     }
 
@@ -239,6 +241,8 @@ function App() {
           deleteTodoList={deleteTodoList}
           selectedListId={selectedListId}
           onSelect={setSelectedListId}
+          //
+          sortOptions={sortOptions}
         />
       </div>
 
