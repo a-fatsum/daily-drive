@@ -1,31 +1,15 @@
 import { useState } from "react";
+// import DropDown from "./DropDown";
 
-// ********** I used ChatGPT to help me with the select dropdown -
-// Look up "react select dropdown" as basic <select> element styling is ignored in Firefox and other browsers -
-//  only works in Chrome
 import Select from "react-select";
 
 export default function AddTodoList({ addTodoList, colors }) {
   const [listTitle, setListTitle] = useState("");
 
-  // ********** I used ChatGPT to help me with the select dropdown -
-  // Look up "react select dropdown" as basic <select> element styling is ignored in Firefox and other browsers -
-  //  only works in Chrome
   const colorOptions = colors.map((c) => ({
     value: c,
-    // label: "",
     color: c,
   }));
-  // const customStyles = {
-  //   option: (styles, { data }) => ({
-  //     ...styles,
-  //     backgroundColor: data.color,
-  //     // Set text color
-  //     color: "#fff",
-  //     // Add some padding
-  //     padding: 10,
-  //   }),
-  // };
   const customStyles = {
     control: (styles, state) => ({
       ...styles,
@@ -46,11 +30,6 @@ export default function AddTodoList({ addTodoList, colors }) {
       padding: 12,
       height: 40,
     }),
-
-    // singleValue: (styles) => ({
-    //   ...styles,
-    //   color: "transparent", // hide selected text
-    // }),
 
     placeholder: (styles) => ({
       ...styles,
@@ -82,20 +61,6 @@ export default function AddTodoList({ addTodoList, colors }) {
           }}
         />
 
-        {/* <select
-          name="listColor"
-          id=""
-          onChange={(e) => {
-            setListColor(e.target.value);
-          }}
-        >
-          {colors.map((color, i) => (
-            <option style={{ backgroundColor: color }} key={i} value={color}>
-              xxx
-            </option>
-          ))}
-        </select> */}
-
         <Select
           options={colorOptions}
           styles={customStyles}
@@ -103,6 +68,14 @@ export default function AddTodoList({ addTodoList, colors }) {
           isSearchable={false}
           placeholder="Select color"
         />
+
+        {/* STILL WORKING ON ON DropDown COMPONENT */}
+        {/* <DropDown
+          sortOptions={colorOptions}
+          styles={customStyles}
+          onChange={setListColor}
+          placeholder="Select color"
+        /> */}
 
         <button className="hover:bg-green-600 p-2 flex items-center justify-center border rounded-md">
           Create List

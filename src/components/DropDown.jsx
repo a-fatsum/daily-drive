@@ -1,7 +1,15 @@
+// ********** I used ChatGPT to help me with the select dropdown -
+// Look up "react select dropdown" as basic <select> element styling is ignored in Firefox and other browsers -
+//  only works in Chrome
 import Select from "react-select";
 //
-
-export default function DropDown({ sortOptions, value, onChange, sortLists }) {
+export default function DropDown({
+  sortOptions,
+  value,
+  onChange,
+  placeholder,
+  styles,
+}) {
   const sortSelection = sortOptions.map((selection) => ({
     value: selection.value,
     label: selection.label,
@@ -85,15 +93,17 @@ export default function DropDown({ sortOptions, value, onChange, sortLists }) {
     }),
   };
 
+  //  Pass styles conditionally
+
   //
   return (
     <Select
       options={sortSelection}
       value={value}
       styles={customStyles}
-      onChange={(selectedOption) => sortLists(selectedOption.value)}
+      onChange={(selectedOption) => onChange(selectedOption.value)}
       className="w-40"
-      placeholder="Sort Lists By"
+      placeholder={placeholder}
     />
   );
 }

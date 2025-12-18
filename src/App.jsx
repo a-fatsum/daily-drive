@@ -5,6 +5,7 @@ import AddTodoList from "./components/AddTodoList";
 import SelectedTodoPanel from "./components/SelectedTodoPanel";
 import { Plus, ArrowLeft } from "lucide-react";
 import { Modal, Box } from "@mui/material";
+import { updateListById } from "./util";
 import "./App.css";
 
 function App() {
@@ -60,74 +61,56 @@ function App() {
     console.log("newListItem", listObj);
   }
 
-  // Handle Add Todo Item to List
-  function addTodoItemToList(listId, title, dueDate, dueTime) {
-    setListObj((lists) => {
-      return lists.map((list) => {
-        if (list.id !== listId) {
-          return list; // not the right list → do nothing
-        }
+  const selectedList = listObj.find((list) => list.id === selectedListId);
 
-        // this IS the list we want
-        return {
-          ...list,
-          todos: [
-            ...list.todos,
-            {
-              id: crypto.randomUUID(),
-              title,
-              dueDate,
-              dueTime,
-              complete: false,
-            },
-          ],
-        };
-      });
-    });
+  function addTodoItemToList(listId, title, dueDate, dueTime) {
+    setListObj((lists) =>
+      updateListById(lists, listId, (list) => ({
+        ...list,
+        todos: [
+          ...list.todos,
+          {
+            id: crypto.randomUUID(),
+            title,
+            dueDate,
+            dueTime,
+            complete: false,
+          },
+        ],
+      }))
+    );
   }
 
   // Handle Complete Item
   function completeTodoItem(todoId) {
-    setListObj((lists) => {
-      return lists.map((list) => {
-        if (list.id !== selectedListId) {
-          return list;
-        }
-        // if this IS the selected list:
-        return {
-          ...list,
-          // Replace todos with:
-          todos: list.todos.map((todo) => {
-            if (todo.id != todoId) {
-              return todo;
-            }
+    setListObj((lists) =>
+      updateListById(lists, selectedListId, (list) => ({
+        ...list,
+        // Replace todos with:
+        todos: list.todos.map((todo) => {
+          if (todo.id != todoId) {
+            return todo;
+          }
 
-            return {
-              ...todo,
-              // // Replace complete with: basically toggle true/false
-              complete: !todo.complete,
-            };
-          }),
-        };
-      });
-    });
+          return {
+            ...todo,
+            // // Replace complete with: basically toggle true/false
+            complete: !todo.complete,
+          };
+        }),
+      }))
+    );
   }
 
   // Handle Delete Item
   function deleteTodoItem(todoId) {
-    setListObj((lists) => {
-      return lists.map((list) => {
-        if (list.id !== selectedListId) {
-          return list;
-        }
-        // if this IS the selected list:
-        return {
-          ...list,
-          // // Replace todos with:
-          todos: list.todos.filter((todo) => todo.id !== todoId), // keep all todos except the one to delete
-        };
-      });
-    });
+    setListObj((lists) =>
+      updateListById(lists, selectedListId, (list) => ({
+        ...list,
+        // // Replace todos with:
+        todos: list.todos.filter((todo) => todo.id !== todoId), // keep all todos except the one to delete
+      }))
+    );
   }
 
   // Handle Delete List
@@ -140,7 +123,7 @@ function App() {
 
   // Handle Sorting
   // const sortOptions = ["By Date", "Alphabetical", "Completed", "Default"];
-  const selectedList = listObj.find((list) => list.id === selectedListId);
+  // const selectedList = listObj.find((list) => list.id === selectedListId);
 
   const sortOptions = [
     { label: "Default", value: "default" },
@@ -149,16 +132,10 @@ function App() {
     { label: "Completed", value: "completed" },
   ];
 
-  function sortTodos(type) {
-    setTodosSortType(type);
-  }
-  //
-
-  // <----------------------
+  // Sort Lists <----------------------
 
   function sortLists(type) {
     setListsSortType(type);
-    console.log("🧪 ⚙️ 😊", sortedLists);
   }
   //
   const sortedLists = (() => {
@@ -190,19 +167,18 @@ function App() {
     return lists; // default
   })();
 
-  // ----------------------->
-
+  // -----------------------> Sort todos
+  function sortTodos(type) {
+    setTodosSortType(type);
+  }
   // =====================
   // READ UP MORE ON .sort() method
   const sortedTodos = (() => {
     if (!selectedList) return [];
-
     const todos = [...selectedList.todos];
-
     if (todosSortType === "alphabetical") {
       return todos.sort((a, b) => a.title.localeCompare(b.title));
     }
-
     if (todosSortType === "date") {
       return todos.sort((a, b) => {
         if (!a.dueDate) return 1;
@@ -210,11 +186,9 @@ function App() {
         return new Date(a.dueDate) - new Date(b.dueDate);
       });
     }
-
     if (todosSortType === "completed") {
       return todos.sort((a, b) => Number(a.complete) - Number(b.complete));
     }
-
     return todos; // default
   })();
 

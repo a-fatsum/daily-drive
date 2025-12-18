@@ -17,7 +17,11 @@ export default function TodoLists({
       <div className="todo-lists ">
         {/* Drop-down */}
         <div className="mb-4">
-          <DropDown sortOptions={sortOptions} sortLists={sortLists} />
+          <DropDown
+            sortOptions={sortOptions}
+            onChange={sortLists}
+            placeholder={"Sort Lists"}
+          />
         </div>
 
         {/* Lists */}
