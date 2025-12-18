@@ -11,6 +11,8 @@ export default function AddTodoItem({ addTodos, sortTodos, sortOptions }) {
     if (newItem.trim() === "") return;
     addTodos(newItem, dueDate, dueTime);
     setNewItem("");
+    setDueDate("");
+    setDueTime("");
   }
   const sortSelection = sortOptions.map((selection) => ({
     value: selection.value,
@@ -134,6 +136,7 @@ export default function AddTodoItem({ addTodos, sortTodos, sortOptions }) {
               type="date"
               id="due-date"
               name="due-date"
+              value={dueDate}
               className="rounded-lg bg-[#1f1f1e] px-3 py-2 text-sm text-gray-100
                        border border-gray-700
                        focus:outline-none focus:ring-2 focus:ring-green-600
@@ -151,6 +154,7 @@ export default function AddTodoItem({ addTodos, sortTodos, sortOptions }) {
               type="time"
               id="due-time"
               name="due-time"
+              value={dueTime}
               className="rounded-lg bg-[#1f1f1e] px-3 py-2 text-sm text-gray-100
                        border border-gray-700
                        focus:outline-none focus:ring-2 focus:ring-green-600
