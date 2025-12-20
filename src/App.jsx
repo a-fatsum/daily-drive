@@ -5,7 +5,13 @@ import AddTodoList from "./components/AddTodoList";
 import SelectedTodoPanel from "./components/SelectedTodoPanel";
 import { Plus, ArrowLeft } from "lucide-react";
 import { Modal, Box } from "@mui/material";
-import { updateListById } from "./util";
+import {
+  updateListById,
+  sortByAlphabetical,
+  sortByDate,
+  countCompletedTodos,
+} from "./util";
+
 import "./App.css";
 
 function App() {
@@ -33,7 +39,7 @@ function App() {
   ];
 
   useEffect(() => {
-    console.log("List 👉👉👉 updated:", listObj);
+    console.log("List 👉👉👉 updated:", listObj), countCompletedTodos(listObj);
   }, [listObj]);
 
   // Local Storage
@@ -122,9 +128,6 @@ function App() {
   }
 
   // Handle Sorting
-  // const sortOptions = ["By Date", "Alphabetical", "Completed", "Default"];
-  // const selectedList = listObj.find((list) => list.id === selectedListId);
-
   const sortOptions = [
     { label: "Default", value: "default" },
     { label: "Alphabetical", value: "alphabetical" },
@@ -138,33 +141,28 @@ function App() {
     setListsSortType(type);
   }
   //
+
   const sortedLists = (() => {
     if (!listObj) return [];
 
-    const lists = [...listObj];
-
     if (listsSortType === "alphabetical") {
-      return lists.sort((a, b) => a.listTitle.localeCompare(b.listTitle));
+      return sortByAlphabetical(listObj, (list) => list.listTitle);
     }
 
     if (listsSortType === "date") {
-      return lists.sort((a, b) => {
-        if (!a.timeStamp) return 1;
-        if (!b.timeStamp) return -1;
-        return new Date(a.timeStamp) - new Date(b.timeStamp);
-      });
+      return sortByDate(listObj, (list) => list.timeStamp);
     }
 
     if (listsSortType === "completed") {
-      return lists.sort((a, b) => {
-        const completedA = a.todos.filter((todo) => todo.complete).length;
-        const completedB = b.todos.filter((todo) => todo.complete).length;
-
-        return completedB - completedA; // more completed first
+      return [...listObj].sort((a, b) => {
+        const completedA = a.todos.filter((t) => t.complete).length;
+        const completedB = b.todos.filter((t) => t.complete).length;
+        countCompletedTodos(listObj);
+        return completedB - completedA;
       });
     }
 
-    return lists; // default
+    return listObj;
   })();
 
   // -----------------------> Sort todos
@@ -177,15 +175,13 @@ function App() {
     if (!selectedList) return [];
     const todos = [...selectedList.todos];
     if (todosSortType === "alphabetical") {
-      return todos.sort((a, b) => a.title.localeCompare(b.title));
+      return sortByAlphabetical(selectedList.todos, (todo) => todo.title);
     }
+
     if (todosSortType === "date") {
-      return todos.sort((a, b) => {
-        if (!a.dueDate) return 1;
-        if (!b.dueDate) return -1;
-        return new Date(a.dueDate) - new Date(b.dueDate);
-      });
+      return sortByDate(selectedList.todos, (todo) => todo.dueDate);
     }
+
     if (todosSortType === "completed") {
       return todos.sort((a, b) => Number(a.complete) - Number(b.complete));
     }
