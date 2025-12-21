@@ -5,12 +5,7 @@ import AddTodoList from "./components/AddTodoList";
 import SelectedTodoPanel from "./components/SelectedTodoPanel";
 import { Plus, ArrowLeft } from "lucide-react";
 import { Modal, Box } from "@mui/material";
-import {
-  updateListById,
-  sortByAlphabetical,
-  sortByDate,
-  countCompletedTodos,
-} from "./util";
+import { updateListById, sortByAlphabetical, sortByDate } from "./util";
 
 import "./App.css";
 
@@ -39,7 +34,7 @@ function App() {
   ];
 
   useEffect(() => {
-    console.log("List 👉👉👉 updated:", listObj), countCompletedTodos(listObj);
+    console.log("List 👉👉👉 updated:", listObj);
   }, [listObj]);
 
   // Local Storage
@@ -157,7 +152,6 @@ function App() {
       return [...listObj].sort((a, b) => {
         const completedA = a.todos.filter((t) => t.complete).length;
         const completedB = b.todos.filter((t) => t.complete).length;
-        countCompletedTodos(listObj);
         return completedB - completedA;
       });
     }
@@ -185,6 +179,11 @@ function App() {
     if (todosSortType === "completed") {
       return todos.sort((a, b) => Number(a.complete) - Number(b.complete));
     }
+
+    // if (todosSortType === "completed") {
+    //   return sortByCompleted(todos, (todo) => Number(todo.complete), false);
+    // }
+
     return todos; // default
   })();
 

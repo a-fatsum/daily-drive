@@ -23,3 +23,12 @@ export function countCompletedTodos(items) {
     items.filter((item) => item.todos.complete == true).length
   );
 }
+
+export function sortByCompleted(items, getCompletedValue, descending = true) {
+  return [...items].sort((a, b) => {
+    const valueA = getCompletedValue(a);
+    const valueB = getCompletedValue(b);
+
+    return descending ? valueB - valueA : valueA - valueB;
+  });
+}
