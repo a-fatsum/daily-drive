@@ -6,7 +6,7 @@ import SelectedTodoPanel from "./components/SelectedTodoPanel";
 import { Plus, ArrowLeft } from "lucide-react";
 import { Modal, Box } from "@mui/material";
 import { updateListById, sortByAlphabetical, sortByDate } from "./util";
-
+import DragAndDrop from "./components/DragAndDrop";
 import "./App.css";
 
 function App() {
@@ -274,6 +274,9 @@ function App() {
             sortOptions={sortOptions}
           />
         )}
+
+        {/* Drag and Drop */}
+        {/* <DragAndDrop /> */}
       </div>
     </>
   );
