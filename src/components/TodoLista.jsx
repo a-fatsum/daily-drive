@@ -1,3 +1,4 @@
+import TaskProgress from "./TaskProgress";
 export default function TodoLista({
   listTitle,
   timeStamp,
@@ -7,6 +8,7 @@ export default function TodoLista({
   onSelect,
   isSelected,
   itemsCount,
+  percent,
 }) {
   function selectLista() {
     onSelect(id);
@@ -22,17 +24,21 @@ export default function TodoLista({
         style={{ backgroundColor: listColor }}
         onClick={selectLista}
       >
-        <div className="todo-lista-header flex items-center justify-between ">
+        <div className="todo-lista-header flex flex-col ">
           <h2 className="font-bold text-xl">{listTitle}</h2>
 
-          <span className="text-xs">
-            Created on: {new Date(timeStamp).toLocaleDateString()}
-          </span>
+          <div className="text-xs flex min-w-[50%] justify-between">
+            <p>Created on:</p>
+            <span>{new Date(timeStamp).toLocaleDateString()}</span>
+          </div>
         </div>
-
-        <div className="flex items-center justify-between text-sm">
-          <div className="flex flex-col">
-            <p>Items</p> <span>{itemsCount}</span>
+        <hr class="border-gray-400 my-2" />
+        <div className="flex items-center justify-between text-sm mt-2">
+          <div className="flex flex-col gap-2 justify-center">
+            <p>
+              Items <span>{itemsCount}</span>
+            </p>
+            <TaskProgress percent={percent} />
           </div>
           <button
             className="mt-3 hover:bg-red-600 p-2 border rounded-md"

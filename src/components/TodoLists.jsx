@@ -1,6 +1,7 @@
 import TodoLista from "./TodoLista";
 // import Select from "react-select";
 import DropDown from "./DropDown";
+
 export default function TodoLists({
   listObj,
   addTodos,
@@ -11,6 +12,7 @@ export default function TodoLists({
   //
   sortOptions, //
   sortLists,
+  percent,
 }) {
   return (
     <>
@@ -39,6 +41,7 @@ export default function TodoLists({
               isSelected={selectedListId === listObj.id}
               itemsCount={listObj.todos.length}
               sortTodos={sortTodos}
+              percent={percent}
             />
           ))}
         </ul>

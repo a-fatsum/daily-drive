@@ -4,9 +4,10 @@ import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
 import SelectedTodoPanel from "./components/SelectedTodoPanel";
 import { Plus, ArrowLeft } from "lucide-react";
-import { Modal, Box } from "@mui/material";
+import { Modal, Box, LinearProgress } from "@mui/material";
 import { updateListById, sortByAlphabetical, sortByDate } from "./util";
 import DragAndDrop from "./components/DragAndDrop";
+import TaskProgress from "./components/TaskProgress";
 import "./App.css";
 
 function App() {
@@ -171,15 +172,12 @@ function App() {
     if (todosSortType === "alphabetical") {
       return sortByAlphabetical(selectedList.todos, (todo) => todo.title);
     }
-
     if (todosSortType === "date") {
       return sortByDate(selectedList.todos, (todo) => todo.dueDate);
     }
-
     if (todosSortType === "completed") {
       return todos.sort((a, b) => Number(a.complete) - Number(b.complete));
     }
-
     // if (todosSortType === "completed") {
     //   return sortByCompleted(todos, (todo) => Number(todo.complete), false);
     // }
@@ -198,8 +196,13 @@ function App() {
   };
   //
 
-  // const selectedList = listObj.find((list) => list.id === selectedListId);
+  // percentage of complete tasks
+  const percent = (() => {
+    // const
+    return 90;
+  })();
 
+  //
   return (
     <>
       <div className=" p-6  space-y-6 bg-[#242423] min-w-[30%]">
@@ -253,6 +256,7 @@ function App() {
           //
           sortOptions={sortOptions} //
           sortLists={sortLists}
+          percent={percent}
         />
       </div>
 
