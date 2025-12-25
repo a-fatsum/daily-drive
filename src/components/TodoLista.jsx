@@ -8,7 +8,7 @@ export default function TodoLista({
   onSelect,
   isSelected,
   itemsCount,
-  percent,
+  completedTodosCount,
 }) {
   function selectLista() {
     onSelect(id);
@@ -38,7 +38,10 @@ export default function TodoLista({
             <p>
               Items <span>{itemsCount}</span>
             </p>
-            <TaskProgress percent={percent} />
+            <TaskProgress
+              completedTodosCount={completedTodosCount}
+              itemsCount={itemsCount}
+            />
           </div>
           <button
             className="mt-3 hover:bg-red-600 p-2 border rounded-md"

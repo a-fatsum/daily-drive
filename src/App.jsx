@@ -197,10 +197,10 @@ function App() {
   //
 
   // percentage of complete tasks
-  const percent = (() => {
-    // const
-    return 90;
-  })();
+  // const percent = (() => {
+  //   // const
+  //   return 90;
+  // })();
 
   //
   return (
@@ -256,7 +256,7 @@ function App() {
           //
           sortOptions={sortOptions} //
           sortLists={sortLists}
-          percent={percent}
+          // percent={percent}
         />
       </div>
 

@@ -12,7 +12,7 @@ export default function TodoLists({
   //
   sortOptions, //
   sortLists,
-  percent,
+  // percent,
 }) {
   return (
     <>
@@ -41,7 +41,9 @@ export default function TodoLists({
               isSelected={selectedListId === listObj.id}
               itemsCount={listObj.todos.length}
               sortTodos={sortTodos}
-              percent={percent}
+              completedTodosCount={
+                listObj.todos.filter((todo) => todo.complete === true).length
+              }
             />
           ))}
         </ul>
